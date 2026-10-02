@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<!-- saved from url=(0066)file:///C:/Users/admin/Downloads/sankat-offline-emergency-app.html -->
+<html lang="en" data-theme="dark"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sankat — offline emergency kit</title>
+<style>
+:root{
+  --ink:#10151B;
+  --surface:#19212B;
+  --surface-2:#222C38;
+  --line:#33404F;
+  --signal:#FF5A1F;
+  --caution:#FFC53D;
+  --safe:#3DDC97;
+  --water:#4FA8FF;
+  --text:#EEF3F8;
+  --muted:#93A2B3;
+  --radius:14px;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--ink);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-size:17px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+button{font:inherit;color:inherit}
+a{color:var(--water)}
+
+/* ---------- header ---------- */
+header{padding:18px 18px 0;max-width:760px;margin:0 auto}
+.brand{display:flex;align-items:baseline;gap:10px}
+.brand h1{font-size:21px;font-weight:700;letter-spacing:-.02em;margin:0}
+.brand span{font-size:13px;color:var(--muted)}
+.tape{
+  height:8px;margin:14px 0 0;border-radius:2px;
+  background:repeating-linear-gradient(115deg,var(--caution) 0 14px,#10151B 14px 28px);
+  opacity:.85;
+}
+
+/* ---------- the big call ---------- */
+main{max-width:760px;margin:0 auto;padding:0 18px 90px}
+.hero{margin-top:20px}
+.dial{
+  display:block;width:100%;text-align:left;text-decoration:none;
+  background:var(--signal);color:#fff;border:0;border-radius:var(--radius);
+  padding:20px 22px;cursor:pointer;
+}
+.dial:active{transform:scale(.99)}
+.dial .num{font-size:60px;font-weight:800;letter-spacing:-.045em;line-height:.95;display:block}
+.dial .what{display:block;margin-top:8px;font-size:15px;font-weight:600;opacity:.93}
+.hero-note{color:var(--muted);font-size:14px;margin:10px 2px 0}
+
+/* ---------- tabs ---------- */
+nav.tabs{
+  position:sticky;top:env(safe-area-inset-top,0px);z-index:20;
+  background:var(--ink);padding:16px 0 10px;margin-top:22px;
+  display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;
+}
+nav.tabs::-webkit-scrollbar{display:none}
+.tab{
+  flex:0 0 auto;background:var(--surface);border:1px solid var(--line);
+  border-radius:999px;padding:9px 16px;font-size:15px;font-weight:600;
+  color:var(--muted);cursor:pointer;white-space:nowrap;
+}
+.tab[aria-selected="true"]{background:var(--text);color:var(--ink);border-color:var(--text)}
+.tab:focus-visible,.dial:focus-visible,summary:focus-visible,.row:focus-visible,
+input:focus-visible,textarea:focus-visible,.ghost:focus-visible{
+  outline:3px solid var(--caution);outline-offset:2px;
+}
+section[role="tabpanel"][hidden]{display:none}
+
+h2{font-size:15px;font-weight:700;color:var(--muted);margin:26px 0 10px;letter-spacing:.01em}
+h2:first-child{margin-top:4px}
+
+/* ---------- contact rows ---------- */
+.rows{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.row{
+  display:flex;align-items:center;gap:14px;width:100%;
+  padding:14px 16px;background:var(--surface);border:0;
+  border-bottom:1px solid var(--line);text-decoration:none;text-align:left;cursor:pointer;
+}
+.row:last-child{border-bottom:0}
+.row:active{background:var(--surface-2)}
+.row .n{
+  flex:0 0 68px;font-size:20px;font-weight:800;letter-spacing:-.02em;
+  color:var(--signal);font-variant-numeric:tabular-nums;
+}
+.row .l{flex:1;min-width:0}
+.row .l b{display:block;font-size:16px;font-weight:600}
+.row .l small{display:block;color:var(--muted);font-size:13px;line-height:1.35}
+.row .go{flex:0 0 auto;color:var(--muted);font-size:13px;font-weight:600}
+
+/* ---------- accordions ---------- */
+details{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--radius);margin-bottom:8px;overflow:hidden;
+}
+details[open]{background:var(--surface-2)}
+summary{
+  list-style:none;cursor:pointer;padding:15px 16px;
+  font-size:16px;font-weight:650;display:flex;align-items:center;gap:12px;
+}
+summary::-webkit-details-marker{display:none}
+summary .dot{flex:0 0 9px;height:9px;border-radius:50%;background:var(--muted)}
+summary .plus{margin-left:auto;color:var(--muted);font-weight:700}
+details[open] summary .plus{transform:rotate(45deg)}
+.body{padding:0 16px 16px;border-top:1px solid var(--line);padding-top:14px}
+.body ol{margin:0;padding-left:22px}
+.body ol li{margin-bottom:9px;font-size:16px}
+.body ol li::marker{color:var(--signal);font-weight:800}
+.body ul{margin:10px 0 0;padding-left:18px}
+.body ul li{margin-bottom:6px;font-size:15px;color:var(--muted)}
+.never{
+  margin-top:14px;padding:11px 13px;border-radius:10px;
+  background:rgba(255,90,31,.1);border:1px solid rgba(255,90,31,.38);
+  font-size:14.5px;
+}
+.never b{color:var(--signal)}
+.d-crit .dot{background:var(--signal)}
+.d-warn .dot{background:var(--caution)}
+.d-calm .dot{background:var(--safe)}
+.d-water .dot{background:var(--water)}
+
+/* ---------- my info ---------- */
+.field{margin-bottom:14px}
+.field label{display:block;font-size:14px;font-weight:600;color:var(--muted);margin-bottom:6px}
+input,textarea{
+  width:100%;background:var(--surface);color:var(--text);
+  border:1px solid var(--line);border-radius:10px;padding:12px 13px;font-size:16px;
+}
+textarea{min-height:88px;resize:vertical}
+.ghost{
+  background:transparent;border:1px solid var(--line);border-radius:10px;
+  padding:11px 16px;font-size:15px;font-weight:600;cursor:pointer;color:var(--text);
+}
+.saved{color:var(--safe);font-size:14px;font-weight:600;margin-left:12px;opacity:0;transition:opacity .2s}
+.saved.on{opacity:1}
+.card-note{color:var(--muted);font-size:14px;margin:0 0 16px}
+.disclaimer{
+  margin-top:28px;padding:14px 15px;border-radius:var(--radius);
+  border:1px dashed var(--line);color:var(--muted);font-size:13.5px;line-height:1.5;
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (max-width:420px){.dial .num{font-size:52px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <h1>Sankat</h1>
+    <span>works without internet</span>
+  </div>
+  <div class="tape" aria-hidden="true"></div>
+</header>
+
+<main>
+  <div class="hero">
+    <a class="dial" href="tel:112">
+      <span class="num">112</span>
+      <span class="what">One number for police, fire and ambulance, anywhere in India. Tap to call.</span>
+    </a>
+    <p class="hero-note">112 works even with no balance, and on most phones from the lock screen.</p>
+  </div>
+
+  <nav class="tabs" role="tablist" aria-label="Sections">
+    <button class="tab" role="tab" aria-selected="true" aria-controls="p-call" id="t-call">Call</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="p-aid" id="t-aid">First aid</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="p-haz" id="t-haz">Hazards</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="p-me" id="t-me">My info</button>
+  </nav>
+
+  <!-- ============ CALL ============ -->
+  <section role="tabpanel" id="p-call" aria-labelledby="t-call">
+    <h2>If 112 is busy or unavailable</h2>
+    <div class="rows">
+      <a class="row" href="tel:100"><span class="n">100</span><span class="l"><b>Police</b><small>Older direct line, still live in most states</small></span><span class="go">Call</span></a>
+      <a class="row" href="tel:101"><span class="n">101</span><span class="l"><b>Fire and rescue</b><small>Fire, building collapse, people trapped</small></span><span class="go">Call</span></a>
+      <a class="row" href="tel:102"><span class="n">102</span><span class="l"><b>Ambulance</b><small>Government ambulance service</small></span><span class="go">Call</span></a>
+      <a class="row" href="tel:108"><span class="n">108</span><span class="l"><b>Emergency response</b><small>Ambulance and disaster response in most states</small></span><span class="go">Call</span></a>
+    </div>
+
+    <h2>Disaster control rooms</h2>
+    <div class="rows">
+      <a class="row" href="tel:1078"><span class="n">1078</span><span class="l"><b>NDMA control room</b><small>National Disaster Management Authority</small></span><span class="go">Call</span></a>
+      <a class="row" href="tel:1070"><span class="n">1070</span><span class="l"><b>State relief line</b><small>State-level disaster relief commissioner</small></span><span class="go">Call</span></a>
+      <a class="row" href="tel:1077"><span class="n">1077</span><span class="l"><b>District control room</b><small>Your district's disaster helpline</small></span><span class="go">Call</span></a>
+      <a class="row" href="tel:1073"><span class="n">1073</span><span class="l"><b>Road accident</b><small>Highway accident response</small></span><span class="go">Call</span></a>
+    </div>
+
+    <h2>Specific help</h2>
+    <div class="rows">
+      <a class="row" href="tel:1091"><span class="n">1091</span><span class="l"><b>Women in distress</b></span><span class="go">Call</span></a>
+      <a class="row" href="tel:1098"><span class="n">1098</span><span class="l"><b>Childline</b><small>Children in danger or lost</small></span><span class="go">Call</span></a>
+      <a class="row" href="tel:1906"><span class="n">1906</span><span class="l"><b>LPG gas leak</b><small>Smell of gas, leaking cylinder</small></span><span class="go">Call</span></a>
+      <a class="row" href="tel:1066"><span class="n">1066</span><span class="l"><b>Poison control</b><small>Swallowed or inhaled something toxic</small></span><span class="go">Call</span></a>
+      <a class="row" href="tel:139"><span class="n">139</span><span class="l"><b>Railway helpline</b><small>Incidents on trains or at stations</small></span><span class="go">Call</span></a>
+      <a class="row" href="tel:1554"><span class="n">1554</span><span class="l"><b>Coast Guard</b><small>Sea rescue, boats in trouble</small></span><span class="go">Call</span></a>
+    </div>
+
+    <h2>What to say when they pick up</h2>
+    <details class="d-calm">
+      <summary><span class="dot"></span>Five things, in this order<span class="plus">+</span></summary>
+      <div class="body">
+        <ol>
+          <li>Where you are. Street, landmark, floor, flat number. Location first, in case the call drops.</li>
+          <li>What happened. One sentence.</li>
+          <li>How many people are hurt, and how badly.</li>
+          <li>Whether anyone is trapped, unconscious, or not breathing.</li>
+          <li>Your name and this phone number.</li>
+        </ol>
+        <ul>
+          <li>Stay on the line until they tell you to hang up. They may talk you through first aid.</li>
+          <li>If the call won't connect, send an SMS — texts often get through when calls don't.</li>
+        </ul>
+      </div>
+    </details>
+
+    <div class="disclaimer">
+      Numbers verified against Indian government listings. Some are state-specific and a few districts still route differently — 112 is the one that works everywhere. Add your own local control room under <b>My info</b>.
+    </div>
+  </section>
+
+  <!-- ============ FIRST AID ============ -->
+  <section role="tabpanel" id="p-aid" aria-labelledby="t-aid" hidden="">
+    <p class="card-note">Call 112 first if you can, then start. If someone else is with you, one person calls while the other begins.</p>
+
+    <details class="d-crit">
+      <summary><span class="dot"></span>Not breathing — CPR (adult)<span class="plus">+</span></summary>
+      <div class="body">
+        <ol>
+          <li>Shout at them and shake their shoulders. No response and no normal breathing? Start now.</li>
+          <li>Call 112 and put the phone on speaker beside you.</li>
+          <li>Lay them flat on their back on a hard surface. Kneel beside their chest.</li>
+          <li>Heel of one hand on the centre of the chest, other hand on top, fingers interlocked.</li>
+          <li>Push straight down hard — about 5 to 6 cm — and let the chest come all the way back up.</li>
+          <li>Keep a rate of 100 to 120 pushes a minute. Don't stop.</li>
+          <li>Only stop when they wake up, help arrives, or you physically cannot continue. Swap with someone every 2 minutes if you can.</li>
+        </ol>
+        <div class="never"><b>Gasping is not breathing.</b> Occasional noisy gasps after collapse are a sign to start CPR, not a sign to wait.</div>
+      </div>
+    </details>
+
+    <details class="d-crit">
+      <summary><span class="dot"></span>Heavy bleeding<span class="plus">+</span></summary>
+      <div class="body">
+        <ol>
+          <li>Press hard directly on the wound with a cloth, shirt, towel — anything.</li>
+          <li>Keep pressing. Don't lift it to check. Add more cloth on top if it soaks through.</li>
+          <li>Raise the limb above the level of the heart if nothing is broken.</li>
+          <li>Once bleeding slows, bandage firmly over the padding.</li>
+          <li>Lay them down, keep them warm, watch for shock.</li>
+        </ol>
+        <div class="never"><b>Never pull out</b> a knife, glass shard or rod stuck in the body — it may be plugging the bleed. Pad around it and leave it in place.</div>
+      </div>
+    </details>
+
+    <details class="d-crit">
+      <summary><span class="dot"></span>Choking<span class="plus">+</span></summary>
+      <div class="body">
+        <ol>
+          <li>Can they cough or speak? Let them cough — don't interfere.</li>
+          <li>Silent, clutching the throat, going blue? Act now.</li>
+          <li>Lean them forward. Give 5 sharp blows between the shoulder blades with the heel of your hand.</li>
+          <li>Still stuck? Stand behind, fist just above the navel, grab it with your other hand, pull sharply inward and upward. 5 times.</li>
+          <li>Alternate 5 back blows and 5 thrusts until it clears.</li>
+          <li>If they go unconscious, lower them down and start CPR.</li>
+        </ol>
+        <ul><li>For a baby under one: 5 back blows face-down along your forearm, then 5 chest thrusts with two fingers. Never abdominal thrusts on an infant.</li></ul>
+      </div>
+    </details>
+
+    <details class="d-warn">
+      <summary><span class="dot"></span>Unconscious but breathing<span class="plus">+</span></summary>
+      <div class="body">
+        <ol>
+          <li>Kneel beside them. Place the near arm out at a right angle.</li>
+          <li>Bring the far arm across the chest, back of their hand against their cheek.</li>
+          <li>Pull the far knee up, foot flat on the ground.</li>
+          <li>Roll them towards you onto their side by pulling that knee.</li>
+          <li>Tilt the head back slightly so the airway stays open and any vomit drains out.</li>
+          <li>Check they're still breathing every minute until help arrives.</li>
+        </ol>
+        <div class="never"><b>If you suspect a neck or spine injury</b>, don't roll them unless they're vomiting or choking. Support the head and wait.</div>
+      </div>
+    </details>
+
+    <details class="d-warn">
+      <summary><span class="dot"></span>Burns<span class="plus">+</span></summary>
+      <div class="body">
+        <ol>
+          <li>Stop the burning. Move away from the source, smother flames.</li>
+          <li>Cool under cool running water for a full 20 minutes. Start even if it's been a while.</li>
+          <li>Remove rings, watches and tight clothing near the burn before it swells.</li>
+          <li>Cover loosely with cling film laid lengthways, or a clean non-fluffy cloth.</li>
+          <li>Keep the rest of the body warm — long cooling causes chills.</li>
+        </ol>
+        <div class="never"><b>No ice, toothpaste, butter, ghee, haldi or ointment.</b> Don't burst blisters. Don't peel off clothing stuck to the skin.</div>
+        <ul><li>Go to hospital for burns to the face, hands, feet, joints or genitals, anything bigger than the person's palm, or any burn on a child.</li></ul>
+      </div>
+    </details>
+
+    <details class="d-warn">
+      <summary><span class="dot"></span>Broken bones<span class="plus">+</span></summary>
+      <div class="body">
+        <ol>
+          <li>Keep them still. Don't let them walk on it or test it.</li>
+          <li>Support the limb in the position you found it, using your hands or rolled cloth.</li>
+          <li>Pad around it and tie a splint — a stick, rolled newspaper, cardboard — above and below the break, not over it.</li>
+          <li>For an arm, a sling made from a dupatta or shirt works well.</li>
+          <li>Ice wrapped in cloth over the area helps with swelling.</li>
+        </ol>
+        <div class="never"><b>Never try to straighten</b> a bent limb or push a bone back in.</div>
+      </div>
+    </details>
+
+    <details class="d-warn">
+      <summary><span class="dot"></span>Shock<span class="plus">+</span></summary>
+      <div class="body">
+        <ul style="margin-top:0"><li>Signs: pale clammy skin, fast weak pulse, shallow fast breathing, confusion, thirst, nausea.</li></ul>
+        <ol style="margin-top:12px">
+          <li>Lay them down and raise their legs about 30 cm if no leg or spine injury.</li>
+          <li>Loosen tight clothing at the neck and waist.</li>
+          <li>Cover them with a blanket or coat.</li>
+          <li>Reassure them and keep checking breathing.</li>
+        </ol>
+        <div class="never"><b>Nothing to eat or drink</b>, even if they beg for water — they may need surgery.</div>
+      </div>
+    </details>
+
+    <details class="d-water">
+      <summary><span class="dot"></span>Snakebite<span class="plus">+</span></summary>
+      <div class="body">
+        <ol>
+          <li>Move away from the snake. Don't try to catch or kill it — photograph it from a distance only if safe.</li>
+          <li>Keep the person absolutely still and calm. Movement spreads venom.</li>
+          <li>Immobilise the bitten limb with a splint and keep it below heart level.</li>
+          <li>Remove rings, bangles and anklets before swelling starts.</li>
+          <li>Get to a hospital with antivenom immediately. Carry them; don't let them walk.</li>
+        </ol>
+        <div class="never"><b>No tourniquet, no cutting, no sucking, no ice, no herbal paste.</b> These cause more harm than the bite. Snakebites rise sharply during floods.</div>
+      </div>
+    </details>
+
+    <details class="d-water">
+      <summary><span class="dot"></span>Pulled from water<span class="plus">+</span></summary>
+      <div class="body">
+        <ol>
+          <li>Get them out without going in yourself if possible — reach with a stick, throw a rope or floating object.</li>
+          <li>Once out, check for breathing.</li>
+          <li>Not breathing? Start CPR straight away. With drowning, give rescue breaths first if you're trained.</li>
+          <li>Breathing? Recovery position, remove wet clothes, wrap them warm.</li>
+          <li>Take them to hospital even if they seem fine. Water in the lungs can cause problems hours later.</li>
+        </ol>
+        <div class="never"><b>Don't hold them upside down</b> or press the stomach to force water out.</div>
+      </div>
+    </details>
+
+    <details class="d-crit">
+      <summary><span class="dot"></span>Electric shock<span class="plus">+</span></summary>
+      <div class="body">
+        <ol>
+          <li>Cut the power at the mains before touching them. This comes first, always.</li>
+          <li>If you can't, push them clear with something dry and non-conducting — wooden stick, plastic chair. Never your hands.</li>
+          <li>Stay well back from fallen high-voltage lines and call 112. Assume every downed wire is live.</li>
+          <li>Once safe, check breathing. Start CPR if needed.</li>
+          <li>Treat burns at the entry and exit points.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="d-warn">
+      <summary><span class="dot"></span>Heat stroke<span class="plus">+</span></summary>
+      <div class="body">
+        <ul style="margin-top:0"><li>Signs: hot dry skin, temperature above 40°C, confusion, headache, no sweating, collapse.</li></ul>
+        <ol style="margin-top:12px">
+          <li>Move them into shade or a cool room immediately.</li>
+          <li>Remove outer clothing.</li>
+          <li>Cool fast — wet cloths, fan them, pour water over them, ice packs at the neck, armpits and groin.</li>
+          <li>If conscious and alert, give cool water or ORS in sips.</li>
+          <li>Keep cooling until help comes. Heat stroke is a medical emergency.</li>
+        </ol>
+      </div>
+    </details>
+
+    <div class="disclaimer">
+      These are standard first-aid steps, not medical advice, and they're no substitute for hands-on training. Do a St John Ambulance or Red Cross course if you can — practising CPR once on a dummy is worth more than reading it ten times. When in doubt, call 112 and follow what the operator tells you over what's written here.
+    </div>
+  </section>
+
+  <!-- ============ HAZARDS ============ -->
+  <section role="tabpanel" id="p-haz" aria-labelledby="t-haz" hidden="">
+    <p class="card-note">This app can't receive live alerts without a connection. For real warnings: install NDMA's <b>Sachet</b> app, keep cell broadcast alerts switched on in your phone settings, and keep a battery radio for All India Radio bulletins.</p>
+
+    <details class="d-water">
+      <summary><span class="dot"></span>Flood<span class="plus">+</span></summary>
+      <div class="body">
+        <ol>
+          <li>Move to higher ground early. Take the stairs, not the lift.</li>
+          <li>Switch off electricity and gas at the mains before water reaches them.</li>
+          <li>Never walk or drive through moving water. Thirty centimetres can sweep a car away; fifteen can knock you off your feet.</li>
+          <li>If you must wade, use a stick to test the ground ahead for open drains and manholes.</li>
+          <li>Drink only boiled or bottled water afterwards. Watch for snakes in debris.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="d-crit">
+      <summary><span class="dot"></span>Earthquake<span class="plus">+</span></summary>
+      <div class="body">
+        <ol>
+          <li>Drop to your hands and knees before the shaking drops you.</li>
+          <li>Cover your head and neck. Get under a sturdy table if there's one within a step or two.</li>
+          <li>Hold on to it and move with it until the shaking stops.</li>
+          <li>Indoors, stay indoors. Outdoors, move away from buildings, walls and power lines and stay put.</li>
+          <li>After it stops, expect aftershocks. Check for gas leaks before using any flame or switch.</li>
+        </ol>
+        <div class="never"><b>Don't run outside</b> while it's shaking, and don't stand in a doorway — that advice is outdated for modern buildings.</div>
+      </div>
+    </details>
+
+    <details class="d-crit">
+      <summary><span class="dot"></span>Fire<span class="plus">+</span></summary>
+      <div class="body">
+        <ol>
+          <li>Get everyone out. Don't collect belongings.</li>
+          <li>Stay low — the breathable air is near the floor.</li>
+          <li>Feel doors with the back of your hand before opening. Hot? Find another way.</li>
+          <li>Never use the lift.</li>
+          <li>Trapped? Shut the door, block gaps with wet cloth, go to a window and signal. Call 101 and tell them exactly which floor and room.</li>
+          <li>Clothes on fire: stop, drop, roll.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="d-warn">
+      <summary><span class="dot"></span>Cyclone<span class="plus">+</span></summary>
+      <div class="body">
+        <ol>
+          <li>Before: charge everything, fill water containers, secure loose objects outside, know your nearest shelter.</li>
+          <li>During: stay indoors in the room furthest from windows. Keep away from glass.</li>
+          <li>If the wind suddenly stops, you may be in the eye. Stay put — it will return from the opposite direction.</li>
+          <li>After: watch for fallen live wires, damaged buildings and contaminated water.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="d-warn">
+      <summary><span class="dot"></span>Building collapse<span class="plus">+</span></summary>
+      <div class="body">
+        <ol>
+          <li>If trapped, cover your mouth and nose with cloth against dust.</li>
+          <li>Tap steadily on a pipe or wall so rescuers can hear you. Save your voice.</li>
+          <li>Shout only as a last resort — it makes you inhale dust.</li>
+          <li>Don't light a match or lighter; there may be gas.</li>
+          <li>Avoid moving around or kicking up dust.</li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="d-calm">
+      <summary><span class="dot"></span>Go-bag: what to keep ready<span class="plus">+</span></summary>
+      <div class="body">
+        <ul style="margin-top:0">
+          <li>Drinking water, three litres per person</li>
+          <li>Dry food that needs no cooking</li>
+          <li>Torch and spare batteries, plus a power bank</li>
+          <li>Battery or wind-up radio</li>
+          <li>First-aid kit and a week of any regular medicines</li>
+          <li>Photocopies of Aadhaar, ration card and insurance in a sealed plastic bag</li>
+          <li>Cash in small notes — card machines fail when power does</li>
+          <li>Whistle, rope, sturdy shoes, spare clothes</li>
+          <li>Water purification tablets or bleach</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ MY INFO ============ -->
+  <section role="tabpanel" id="p-me" aria-labelledby="t-me" hidden="">
+    <p class="card-note">Stored on this device only. Nothing is sent anywhere. Fill this in now so a stranger or a paramedic can find it later.</p>
+
+    <div class="field">
+      <label for="f-name">Name</label>
+      <input id="f-name" type="text" placeholder="Your full name">
+    </div>
+    <div class="field">
+      <label for="f-blood">Blood group</label>
+      <input id="f-blood" type="text" placeholder="e.g. O positive">
+    </div>
+    <div class="field">
+      <label for="f-med">Medical notes</label>
+      <textarea id="f-med" placeholder="Allergies, conditions, regular medicines, implants"></textarea>
+    </div>
+    <div class="field">
+      <label for="f-addr">Home address</label>
+      <textarea id="f-addr" placeholder="Full address with landmark — you may need to read this out"></textarea>
+    </div>
+    <div class="field">
+      <label for="f-contacts">Emergency contacts</label>
+      <textarea id="f-contacts" placeholder="Name — 98xxxxxxxx
+Name — 98xxxxxxxx"></textarea>
+    </div>
+    <div class="field">
+      <label for="f-local">Local control room and hospital numbers</label>
+      <textarea id="f-local" placeholder="Ward office, society security, nearest hospital"></textarea>
+    </div>
+
+    <button class="ghost" id="save">Save to this device</button>
+    <span class="saved" id="savedmsg">Saved</span>
+
+    <h2>Your saved numbers</h2>
+    <div id="mynums" class="rows"><div class="row"><span class="l"><small>Add numbers above and save — they'll appear here as tap-to-call buttons.</small></span></div></div>
+  </section>
+</main>
+
+<script>
+(function(){
+  // tabs
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){
+      tabs.forEach(function(t){
+        var on = t === tab;
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+      });
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  });
+
+  // storage
+  var FIELDS = ['f-name','f-blood','f-med','f-addr','f-contacts','f-local'];
+  var KEY = 'sankat.profile.v1';
+
+  function load(){
+    try {
+      var raw = localStorage.getItem(KEY);
+      if(!raw) return;
+      var data = JSON.parse(raw);
+      FIELDS.forEach(function(id){
+        if(data[id]) document.getElementById(id).value = data[id];
+      });
+    } catch(e){ /* storage unavailable — fields just start empty */ }
+    renderNums();
+  }
+
+  function save(){
+    var data = {};
+    FIELDS.forEach(function(id){ data[id] = document.getElementById(id).value; });
+    try {
+      localStorage.setItem(KEY, JSON.stringify(data));
+      flash('Saved');
+    } catch(e){
+      flash('Could not save — storage is blocked in this browser');
+    }
+    renderNums();
+  }
+
+  function flash(msg){
+    var el = document.getElementById('savedmsg');
+    el.textContent = msg;
+    el.classList.add('on');
+    setTimeout(function(){ el.classList.remove('on'); }, 2200);
+  }
+
+  function renderNums(){
+    var text = document.getElementById('f-contacts').value + '\n' + document.getElementById('f-local').value;
+    var box = document.getElementById('mynums');
+    var out = [];
+    text.split('\n').forEach(function(line){
+      if(!line.trim()) return;
+      var m = line.match(/(\+?\d[\d\s\-]{5,})/);
+      if(!m) return;
+      var num = m[1].replace(/[\s\-]/g,'');
+      var label = line.replace(m[1],'').replace(/[—\-–:]\s*$/,'').trim() || num;
+      out.push('<a class="row" href="tel:'+num+'"><span class="l"><b>'+esc(label)+'</b><small>'+esc(num)+'</small></span><span class="go">Call</span></a>');
+    });
+    box.innerHTML = out.length ? out.join('') :
+      '<div class="row"><span class="l"><small>Add numbers above and save — they\'ll appear here as tap-to-call buttons.</small></span></div>';
+  }
+
+  function esc(s){
+    return s.replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  document.getElementById('save').addEventListener('click', save);
+  load();
+})();
+</script>
+
+
+</body></html>
